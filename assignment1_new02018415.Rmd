@@ -1,9 +1,9 @@
 ---
-title: "YR"
+title: "Reproducible Research -- Assignment 1"
 output:
-  pdf_document: default
-  word_document: default
   html_document: default
+  word_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -36,7 +36,7 @@ d_1
 
 ####1.2. Histogram of the total number of steps taken each day
 ```{R}
-hist(d_1$total_steps_per_day)
+hist(d_1$total_steps_per_day, main="Histogram of total number of steps per day", xlab = "Steps")
 ```
 
 ####1.3 The mean and median of the total number of steps taken per day
@@ -98,17 +98,20 @@ There are **2304** missing values in the dataset
 
 
 ####3.2. filling in all of the missing values in the dataset, replace missing value with mean steps of the day
+#### &
 ####3.3. Create a new dataset that is equal to the original dataset but with the missing data filled in.
 
 ```{R}
-n1 <- sum(is.na(d$steps))
-n1
+#n1 <- sum(is.na(d$steps))
+#n1
 rplc<- merge (d, d_2, by = "date")
 rplc$steps[is.na(rplc$steps)] <- rplc$mean_steps
 n2<-sum(is.na(rplc$steps))
 n2
 ```
-The dataset with missing data filled in is created, now with only **576** missing data points.
+The missing data is replaced with the means steps of the day. 
+The dataset with missing data filled in is created. Now there are only **576** missing data points, used to be 2304 missing data points.
+
 
 
 ####3.4. Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day. Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?
@@ -119,7 +122,7 @@ rplc1 <- ddply(rplc, ~date, summarise, total_steps=sum(steps))
 
 as.numeric(rplc1$total_steps)
 
-hist(rplc1$total_steps)
+hist(rplc1$total_steps, main= "Histogram of total number of steps per day", xlab= "Steps")
 
 ```
 
